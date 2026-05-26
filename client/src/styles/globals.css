@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-surface-1 text-ink-primary;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    @apply bg-accent-dim text-accent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-5 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-tertiary;
+  }
+}
+
+@layer components {
+  /* Reusable glass card effect */
+  .glass-card {
+    @apply bg-surface-2 border border-surface-4 rounded-xl2;
+    backdrop-filter: blur(12px);
+  }
+
+  /* Accent glow effect for important elements */
+  .accent-glow {
+    box-shadow: 0 0 20px theme('colors.accent.dim'), 0 0 40px theme('colors.accent.dim');
+  }
+
+  /* Subtle grid background pattern */
+  .bg-grid {
+    background-image:
+      linear-gradient(theme('colors.surface.3') 1px, transparent 1px),
+      linear-gradient(90deg, theme('colors.surface.3') 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Input base styling */
+  .input-base {
+    @apply w-full bg-surface-2 border border-surface-4 rounded-lg px-4 py-2.5
+           text-ink-primary placeholder-ink-tertiary text-sm
+           focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent-dim
+           transition-colors duration-150;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-accent text-surface-0 font-medium px-5 py-2.5 rounded-lg text-sm
+           hover:bg-accent-hover active:scale-95
+           transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply text-ink-secondary hover:text-ink-primary hover:bg-surface-3
+           px-3 py-2 rounded-lg text-sm font-medium
+           transition-all duration-150;
+  }
+
+  /* Encrypted status badge */
+  .badge-encrypted {
+    @apply inline-flex items-center gap-1.5 text-xs font-mono
+           text-accent bg-accent-dim px-2.5 py-1 rounded-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Noise texture overlay for depth */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+  }
+}
